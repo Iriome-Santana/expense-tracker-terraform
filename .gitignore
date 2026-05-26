@@ -1,0 +1,24 @@
+# State files — nunca al repo
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+
+# State local de backup tras migrate
+*.tfstate.*.backup
+
+# Directorio de providers descargados
+.terraform/
+
+# Variables con valores sensibles
+terraform.tfvars
+*.auto.tfvars
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
