@@ -48,3 +48,15 @@ variable "account_id" {
   description = "AWS account ID"
   type        = string
 }
+
+variable "db_password" {
+  description = "PostgreSQL database password"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_user" {
+  description = "PostgreSQL database user"
+  type        = string
+  default     = "expenseuser"
+}
