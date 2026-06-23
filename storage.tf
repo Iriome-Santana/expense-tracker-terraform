@@ -39,7 +39,19 @@ resource "aws_s3_bucket_lifecycle_configuration" "backups" {
       days = 365
     }
   }
+
+  rule {
+    id     = "abort-multipart-uploads"
+    status = "Enabled"
+
+    filter {}
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+  }
 }
+
 resource "aws_s3_bucket_public_access_block" "backups" {
   bucket = aws_s3_bucket.backups.id
 

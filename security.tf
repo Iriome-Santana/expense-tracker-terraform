@@ -104,3 +104,11 @@ resource "aws_security_group" "app" {
     Name = "sg.app"
   }
 }
+
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "${var.project_name}-default-sg-restricted"
+  }
+}

@@ -4,6 +4,7 @@ resource "aws_instance" "api" {
   subnet_id              = aws_subnet.public.id
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
   vpc_security_group_ids = [aws_security_group.app.id]
+  monitoring             = true
 
   user_data = base64encode(templatefile("${path.module}/templates/userdata.sh", {
     db_user            = var.db_user
