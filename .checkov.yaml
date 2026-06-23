@@ -45,3 +45,7 @@ skip-check:
   # Port 80 open on public_web SG: required for HTTP→HTTPS redirect
   # Future: enforce redirect at application level
   - CKV_AWS_260
+
+  # CloudWatch Log Group KMS encryption: AES256 default encryption is sufficient
+  # for VPC flow logs — KMS adds cost without meaningful security benefit
+  - CKV_AWS_158

@@ -47,7 +47,7 @@ resource "aws_route_table_association" "public" {
 
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
   name              = "/aws/vpc/flow-logs/${var.project_name}"
-  retention_in_days = 30
+  retention_in_days = 365
 
   tags = {
     Name = "${var.project_name}-vpc-flow-logs"
@@ -81,13 +81,15 @@ resource "aws_iam_role_policy" "vpc_flow_logs" {
       {
         Effect = "Allow"
         Action = [
-          "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
           "logs:DescribeLogGroups",
           "logs:DescribeLogStreams"
         ]
-        Resource = "*"
+        Resource = [
+          "arn:aws:logs:${var.aws_region}:${var.account_id}:log-group:/aws/vpc/flow-logs/${var.project_name}",
+          "arn:aws:logs:${var.aws_region}:${var.account_id}:log-group:/aws/vpc/flow-logs/${var.project_name}:*"
+        ]
       }
     ]
   })
