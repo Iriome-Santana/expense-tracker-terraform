@@ -7,10 +7,9 @@ resource "aws_instance" "api" {
   monitoring             = true
 
   user_data = base64encode(templatefile("${path.module}/templates/userdata.sh", {
-    db_user            = var.db_user
-    db_password        = var.db_password
-    backup_bucket_name = var.backup_bucket_name
-  }))
+  db_user            = var.db_user
+  backup_bucket_name = var.backup_bucket_name
+}))
 
   user_data_replace_on_change = false
 

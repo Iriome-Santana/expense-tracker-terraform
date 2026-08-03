@@ -49,11 +49,6 @@ variable "account_id" {
   type        = string
 }
 
-variable "db_password" {
-  description = "PostgreSQL database password"
-  type        = string
-  sensitive   = true
-}
 
 variable "db_user" {
   description = "PostgreSQL database user"

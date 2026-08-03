@@ -31,14 +31,21 @@ cd /app
 curl -SL https://raw.githubusercontent.com/Iriome-Santana/expense-tracker-sre/main/deploy/docker-compose.prod.yml \
   -o docker-compose.yml
 
-# 8. Crear el archivo .env con las variables de producción
-cat > /app/.env << 'EOF'
+# 8. Fetchear credenciales de SSM y crear .env
+DB_PASSWORD=$(aws ssm get-parameter \
+  --name "/expense-tracker/production/db_password" \
+  --with-decryption \
+  --region eu-west-1 \
+  --query Parameter.Value \
+  --output text)
+
+cat > /app/.env << EOF
 DB_HOST=db
 DB_NAME=expense_tracker
 DB_USER=${db_user}
-DB_PASSWORD=${db_password}
+DB_PASSWORD=$DB_PASSWORD
 POSTGRES_USER=${db_user}
-POSTGRES_PASSWORD=${db_password}
+POSTGRES_PASSWORD=$DB_PASSWORD
 POSTGRES_DB=expense_tracker
 S3_BACKUP_BUCKET=${backup_bucket_name}
 LOG_FILE=app.log
