@@ -161,8 +161,6 @@ Marking a variable as sensitive prevents Terraform from displaying its value in 
 
 **IMDSv2 not enforced:** The instance metadata service is running in optional mode rather than required mode. IMDSv2 prevents SSRF attacks that could expose the IAM Instance Profile credentials via the metadata endpoint. Enforcing it requires instance replacement for the same reason as EBS encryption. Deferred alongside EBS encryption — both will be addressed in the same planned maintenance window.
 
-**Credentials in user_data:** Database credentials are passed via user_data template variables. While the credentials are not exposed in the repository, user_data is accessible from within the instance via the metadata endpoint. The correct solution is AWS Secrets Manager — the instance would fetch credentials at runtime rather than receiving them at launch. Deferred pending Secrets Manager integration.
-
 ---
 
 ## Security scanning
